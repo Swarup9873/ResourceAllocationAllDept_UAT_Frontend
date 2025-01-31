@@ -1,5 +1,11 @@
-import reactDom from "react-dom";
-import App from "./App";
+// src/main.jsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import AppRouter from "./router";
 import "./index.css";
 
-reactDom.render(<App />, document.getElementById("root"));
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <AppRouter />
+  </React.StrictMode>
+);

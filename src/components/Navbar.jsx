@@ -15,7 +15,7 @@ const Navbar = () => {
     <div className="bg-dark-purple text-white p-2 flex justify-between items-center h-14">
       {/* Left Section: Logo */}
       <div className="flex items-center">
-        <img src={mjLogo} alt="Logo" className="h-10 bg-white rounded-full" />
+        <img src={mjLogo} alt="Logo" className="h-14 bg-white" />
       </div>
 
       {/* Center Section: Application Tracker */}

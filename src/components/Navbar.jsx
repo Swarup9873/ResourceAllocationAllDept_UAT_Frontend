@@ -4,9 +4,9 @@ import { useState } from "react";
 import mjLogo from "../assets/mjLogo.png";
 
 // Icons from react-icons
-import { FaUserCircle, FaSignOutAlt } from "react-icons/fa"; 
+import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 
-const Navbar = () => {
+const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const [open, setOpen] = useState(false);
 
   const toggleMenu = () => setOpen(!open);
@@ -17,6 +17,15 @@ const Navbar = () => {
       <div className="flex items-center">
         <img src={mjLogo} alt="Logo" className="h-14 bg-white" />
       </div>
+
+      {!isSidebarOpen && (
+        <button
+          className=" md:hidden bg-dark-purple text-white p-4 rounded-lg"
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        >
+          ☰
+        </button>
+      )}
 
       {/* Center Section: Application Tracker */}
       <div className="flex-1 text-center">

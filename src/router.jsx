@@ -1,7 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
-import CreateProject from "./pages/CreateProjects";
+// import CreateProject from "./pages/CreateProjects";
+import CreateProject from "./pages/CreateProjects2";
 import AllocateProject from "./pages/AllocateProjects";
 import AssignProject from "./pages/AssignProjects"
 import TeamMember from "./pages/TeamMember"
@@ -9,7 +10,7 @@ import List from "./pages/List"
 import Reports from "./pages/Reports"
 
 
-const router = createBrowserRouter([
+const Router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
@@ -26,5 +27,5 @@ const router = createBrowserRouter([
 ]);
 
 export default function AppRouter() {
-  return <RouterProvider router={router} />;
+  return <RouterProvider router={Router} />;
 }

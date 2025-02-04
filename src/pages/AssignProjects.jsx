@@ -10,14 +10,17 @@ import {
   Checkbox,
   Typography,
   Breadcrumbs,
-  Link,
-  useMediaQuery
+  useMediaQuery,
+  CircularProgress
 } from "@mui/material";
 
+
+
 const AssignProjects = () => {
-  const [left, setLeft] = useState(["Item 1", "Item 2", "Item 3", "Item 4"]);
+  const [left, setLeft] = useState(["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10"]);
   const [right, setRight] = useState([]);
   const [checked, setChecked] = useState([]);
+  const [loading,setLoading] = useState(false);
 
   const isMobile = useMediaQuery("(max-width: 637px)"); // Detect small screens
 
@@ -43,41 +46,74 @@ const AssignProjects = () => {
     setChecked([]);
   };
 
+  const handleAssignClick =()=>{
+    setLoading(true);
+
+    setTimeout(()=>{
+      setLoading(false)
+    }, 3000)
+  }
+
+
+
   return (
-    <>
+    <div className="relative">
+      {/* CircularProgress overlay when loading */}
+      {loading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <CircularProgress color="primary" />
+        </div>
+      )}
+
       {/* Breadcrumbs as Page Header */}
       <div className="w-[90%] mx-auto mt-5">
-        <Breadcrumbs aria-label="breadcrumb">
-          <Typography color="inherit" href="/projects">
-            Projects
-          </Typography>
-          <Typography color="textPrimary">Assign Project</Typography>
-        </Breadcrumbs>
+        <Box className="bg-dark-purple text-white py-2 px-4 relative inline-block">
+          <Breadcrumbs aria-label="breadcrumb" className="text-white" separator={<span className="text-white">›</span>}>
+            <Typography className="text-white">
+              Projects
+            </Typography>
+            <Typography className="text-white">Assign Projects</Typography>
+          </Breadcrumbs>
+
+          {/* Arrow Effect */}
+          <Box
+            component="span"
+            className="absolute right-[-20px] top-0 bottom-0 w-5 bg-dark-purple clip-arrow"
+          />
+          <style>
+            {`
+              .clip-arrow {
+                clip-path: polygon(100% 50%, 0 0, 0 100%);
+              }
+            `}
+          </style>
+        </Box>
       </div>
+      
       <div className="flex flex-col items-center justify-center bg-gray-100 p-2 mt-5">
-        {/* <Typography variant="h6" className="text-center text-gray-700 font-medium">
-        Assign Projects
-      </Typography> */}
 
         <Card className="w-full max-w-5xl bg-white shadow-md rounded-md p-4">
           <div className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-4">
             {/* Left List */}
             <Box className="flex flex-col w-full sm:w-1/3 h-[280px]">
-              <Typography className="text-gray-600 text-sm font-medium mb-1">Select Project</Typography>
-              <List className="border border-gray-300 rounded-md p-1 bg-gray-50 shadow-sm h-full overflow-y-auto text-sm">
+              <Typography className="text-gray-600  mb-1">Select Projects</Typography>
+
+              <List className="border border-gray-300 rounded-md p-1 bg-gray-50 shadow-sm h-full overflow-y-auto text-xs">
                 {left.map((item) => (
                   <ListItem
                     key={item}
                     onClick={() => handleToggle(item)}
-                    className="cursor-pointer hover:bg-gray-200 transition-all rounded-md"
+                    className="cursor-pointer hover:bg-gray-200 transition-all rounded-md px-2 py-1"
+                    sx={{ padding: "2px 4px" }} // Reduce height and padding
                   >
-                    <ListItemIcon>
-                      <Checkbox checked={checked.includes(item)} size="small" />
+                    <ListItemIcon className="min-w-[30px]">
+                      <Checkbox checked={checked.includes(item)} size="small" sx={{ transform: "scale(0.7)" }} />
                     </ListItemIcon>
-                    <ListItemText primary={item} />
+                    <ListItemText primary={item} className="text-xs" />
                   </ListItem>
                 ))}
               </List>
+
             </Box>
 
             {/* Buttons */}
@@ -86,7 +122,7 @@ const AssignProjects = () => {
                 variant="contained"
                 onClick={() => moveItems(left, right, setLeft, setRight)}
                 disabled={checked.length === 0}
-                className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-1 rounded-md shadow-sm"
+                className="bg-dark-purple hover:bg-dark-purple text-white text-xs px-4 py-1 rounded-md shadow-sm"
               >
                 {isMobile ? "↓" : "→"}
               </Button>
@@ -94,7 +130,7 @@ const AssignProjects = () => {
                 variant="contained"
                 onClick={() => moveItems(right, left, setRight, setLeft)}
                 disabled={checked.length === 0}
-                className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-1 rounded-md shadow-sm"
+                className="bg-dark-purple hover:bg-dark-purple text-white text-xs px-4 py-1 rounded-md shadow-sm"
               >
                 {isMobile ? "↑" : "←"}
               </Button>
@@ -109,11 +145,12 @@ const AssignProjects = () => {
                     key={item}
                     onClick={() => handleToggle(item)}
                     className="cursor-pointer hover:bg-gray-200 transition-all rounded-md"
+                    sx={{ padding: "2px 4px" }}
                   >
                     <ListItemIcon>
-                      <Checkbox checked={checked.includes(item)} size="small" />
+                      <Checkbox checked={checked.includes(item)} size="small" sx={{ transform: "scale(0.7)" }} />
                     </ListItemIcon>
-                    <ListItemText primary={item} />
+                    <ListItemText primary={item} className="text-xs" />
                   </ListItem>
                 ))}
               </List>
@@ -123,7 +160,8 @@ const AssignProjects = () => {
           <div className="flex items-end mt-4">
             <button
               type="button"
-              disabled={checked.length === 0}
+              // disabled={checked.length === 0}
+              onClick={handleAssignClick}
               className="ml-auto bg-dark-purple cursor-pointer text-white font-sm px-4 py-1 rounded-md"
             >
               Assign
@@ -131,7 +169,7 @@ const AssignProjects = () => {
           </div>
         </Card>
       </div>
-    </>
+    </div>
   );
 };
 

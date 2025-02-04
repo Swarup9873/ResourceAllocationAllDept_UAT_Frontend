@@ -16,17 +16,7 @@ const MainLayout = () => {
       {/* Main Wrapper */}
       <div className="flex flex-1 pt-14 overflow-hidden relative">
         {/* Sidebar */}
-
-        {/* <div
-          className={`fixed inset-y-0 left-0 z-50 transform bg-dark-purple transition-all duration-300
-            ${isSidebarOpen ? "w-64 sm:w-72" : "w-20 sm:w-20"}  
-            sm:relative sm:translate-x-0 
-            ${isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
-        >
-          <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        </div> */}
-
-<div
+        <div
           className={`fixed inset-y-0 left-0 z-50 transform bg-dark-purple transition-all duration-300
             ${isSidebarOpen ? "w-64 sm:w-72" : "w-20 sm:w-20"}  
             sm:relative sm:translate-x-0 

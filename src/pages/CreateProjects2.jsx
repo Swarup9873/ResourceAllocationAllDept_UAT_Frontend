@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { Typography, Breadcrumbs, Link } from "@mui/material";
-import { DataGrid } from '@mui/x-data-grid';
+import { Typography,Box, Breadcrumbs } from "@mui/material";
+import DataGridTemplate from "../components/datagrids/DataGridTemplate";
 import CreateProjectModal from "../components/Modals/CreateProjectModal";
 
 
 const CreateProject = () => {
 
-  
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   const columns = [
@@ -29,25 +28,40 @@ const CreateProject = () => {
     { id: 9, category: "Opex", name: "Project Zeta", startDate: "2024-06-15", endDate: "2024-12-10" },
   ]);
 
-
-  const paginationModel = { page: 0, pageSize: 5 };
-
+  const handleCreate = () =>{
+    setIsModalOpen(true);
+  }
 
   return (
     <>
       {/* Header Section */}
       <div className="w-[90%] mx-auto mt-5">
-        <Breadcrumbs aria-label="breadcrumb">
-          <Typography color="inherit" href="/projects">
-            Projects
-          </Typography>
-          <Typography color="textPrimary">Create Project</Typography>
-        </Breadcrumbs>
+      <Box className="bg-dark-purple text-white py-2 px-4 relative inline-block">
+          <Breadcrumbs aria-label="breadcrumb" className="text-white" separator={<span className="text-white">›</span>}>
+            <Typography className="text-white">
+              Projects
+            </Typography>
+            <Typography className="text-white">Create Project</Typography>
+          </Breadcrumbs>
+
+          {/* Arrow Effect */}
+          <Box
+            component="span"
+            className="absolute right-[-20px] top-0 bottom-0 w-5 bg-dark-purple clip-arrow"
+          />
+          <style>
+            {`
+              .clip-arrow {
+                clip-path: polygon(100% 50%, 0 0, 0 100%);
+              }
+            `}
+          </style>
+        </Box>
       </div>
 
       <div className="w-[90%] mx-auto mt-5 flex justify-between items-center">
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={handleCreate}
           className="ml-auto bg-dark-purple text-white px-4 py-2 rounded-lg shadow-md"
         >
           + Create
@@ -59,34 +73,11 @@ const CreateProject = () => {
         <Typography variant="h6" className="text-center text-white font-medium bg-dark-purple">
           Project List
         </Typography>
+        
         <div style={{ width: '100%', overflowX: 'auto' }}>
-          <DataGrid
+          <DataGridTemplate 
             rows={projects}
             columns={columns}
-            initialState={{ pagination: { paginationModel } }}
-            pageSizeOptions={[5, 10]}
-            rowHeight={30}
-            sx={{
-              minWidth: 800,
-              maxWidth: '100%', // Keeps it within the parent div
-              border: 0,
-              height: 'auto', // Adjust the height
-              maxHeight: '280',
-              width: '100%', // Make the grid take less width
-              fontSize: '0.775rem', // Make text smaller
-              '.MuiDataGrid-columnHeader': {
-                fontSize: '0.775rem', // Make column header font smaller
-              },
-              '.MuiDataGrid-cell': {
-                fontSize: '0.675rem', // Make cell text smaller
-              },
-              '& .MuiDataGrid-row:nth-of-type(even)': {
-                backgroundColor: '#f7f7f7', // Light gray background for alternate rows
-              },
-              '& .MuiDataGrid-row:nth-of-type(odd)': {
-                backgroundColor: '#ffffff', // White background for normal rows
-              },
-            }}
           />
         </div>
       </div>

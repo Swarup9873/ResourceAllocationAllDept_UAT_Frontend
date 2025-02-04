@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Typography,Box, Breadcrumbs } from "@mui/material";
 import DataGridTemplate from "../components/datagrids/DataGridTemplate";
 import CreateProjectModal from "../components/Modals/CreateProjectModal";
-
+import BreadCrumb from "../components/BreadCrumb";
 
 const CreateProject = () => {
 
@@ -35,30 +35,8 @@ const CreateProject = () => {
   return (
     <>
       {/* Header Section */}
-      <div className="w-[90%] mx-auto mt-5">
-      <Box className="bg-dark-purple text-white py-2 px-4 relative inline-block">
-          <Breadcrumbs aria-label="breadcrumb" className="text-white" separator={<span className="text-white">›</span>}>
-            <Typography className="text-white">
-              Projects
-            </Typography>
-            <Typography className="text-white">Create Project</Typography>
-          </Breadcrumbs>
-
-          {/* Arrow Effect */}
-          <Box
-            component="span"
-            className="absolute right-[-20px] top-0 bottom-0 w-5 bg-dark-purple clip-arrow"
-          />
-          <style>
-            {`
-              .clip-arrow {
-                clip-path: polygon(100% 50%, 0 0, 0 100%);
-              }
-            `}
-          </style>
-        </Box>
-      </div>
-
+      
+      <BreadCrumb text1={"Projects"} text2={"Create Projects"}/>
       <div className="w-[90%] mx-auto mt-5 flex justify-between items-center">
         <button
           onClick={handleCreate}

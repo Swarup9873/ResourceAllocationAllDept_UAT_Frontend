@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // mui
 import { Tooltip } from "@mui/material";
 
 // images
 import logo from "../assets/logo.png";
-import control from "../assets/control.png";
 import Chart_fill from "../assets/Chart_fill.png";
 import User from "../assets/User.png";
 import Calendar from "../assets/Calendar.png";
 import Folder from "../assets/Folder.png";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
+  const location = useLocation(); // Get current route
   const [activeIndex, setActiveIndex] = useState(null); // Track open submenu
 
   const Menus = [
@@ -41,12 +41,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
-  // Handle menu item selection
-  const handleMenuClick = (path) => {
-    // Close the sidebar
-    toggleSidebar();
-  };
-
   return (
     <>
       {/* Sidebar */}
@@ -54,20 +48,15 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         className={`fixed md:relative bg-dark-purple h-screen p-5 pt-8 duration-300 shadow-lg z-50
         ${isSidebarOpen ? "w-72" : "w-20"} md:w-[${isSidebarOpen ? "18rem" : "5rem"}]`}
       >
-        {/* Sidebar Toggle Button (Larger Screens) */}
-        <img
-          src={control}
-          className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
-         border-2 rounded-full ${!isSidebarOpen && "rotate-180"}`}
-          onClick={toggleSidebar}
-        />
-
         {/* Sidebar Header */}
         <div className="flex gap-x-4 items-center">
+          <Tooltip title="Open/Close">
           <img
             src={logo}
             className={`cursor-pointer duration-500 ${isSidebarOpen && "rotate-[360deg]"}`}
+            onClick={toggleSidebar}
           />
+          </Tooltip>
         </div>
 
         {/* Sidebar Menu */}
@@ -78,12 +67,15 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               <Tooltip title={!isSidebarOpen ? Menu.title : ""} placement="right">
                 <li
                   className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
-              ${Menu.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-light-white"}`}
+                  ${Menu.gap ? "mt-9" : "mt-2"} 
+                  ${
+                    location.pathname === Menu.path
+                      ? "bg-light-white text-white"
+                      : "bg-transparent"
+                  }`}
                   onClick={() => {
                     if (Menu.submenus) {
                       toggleSubmenu(index);
-                    } else {
-                      handleMenuClick(Menu.path); // Close sidebar on click
                     }
                   }}
                 >
@@ -108,8 +100,11 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                     <li key={subIndex} className="mt-2">
                       <Link
                         to={submenu.path}
-                        className="text-gray-400 hover:text-white text-sm"
-                        onClick={() => handleMenuClick(submenu.path)} // Close sidebar on submenu click
+                        className={`text-gray-400 hover:text-white text-sm ${
+                          location.pathname === submenu.path
+                            ? "bg-light-white text-white p-2 rounded-md"
+                            : ""
+                        }`} // Highlight selected submenu
                       >
                         - {submenu.title}
                       </Link>
@@ -125,7 +120,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
       {/* Overlay for Small Screens */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 md:hidden z-40"
+          className="fixed inset-0 bg-black bg-opacity-50 sm:hidden z-40"
           onClick={toggleSidebar}
         ></div>
       )}

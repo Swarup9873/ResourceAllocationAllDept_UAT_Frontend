@@ -14,15 +14,17 @@ import {
   CircularProgress
 } from "@mui/material";
 
+import BreadCrumb from "../components/BreadCrumb";
+
 
 
 const AssignProjects = () => {
-  const [left, setLeft] = useState(["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10"]);
-  const [right, setRight] = useState([]);
   const [checked, setChecked] = useState([]);
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [projectsList, setProjectsList] = useState(["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10"]);
+  const [allocatedList, setAllocatedList] = useState([]);
 
-  const isMobile = useMediaQuery("(max-width: 637px)"); // Detect small screens
+  const isMobile = useMediaQuery("(max-width: 640px)"); // Detect small screens
 
   const handleToggle = (value) => {
     const currentIndex = checked.indexOf(value);
@@ -46,10 +48,10 @@ const AssignProjects = () => {
     setChecked([]);
   };
 
-  const handleAssignClick =()=>{
+  const handleAssignClick = () => {
     setLoading(true);
 
-    setTimeout(()=>{
+    setTimeout(() => {
       setLoading(false)
     }, 3000)
   }
@@ -66,30 +68,8 @@ const AssignProjects = () => {
       )}
 
       {/* Breadcrumbs as Page Header */}
-      <div className="w-[90%] mx-auto mt-5">
-        <Box className="bg-dark-purple text-white py-2 px-4 relative inline-block">
-          <Breadcrumbs aria-label="breadcrumb" className="text-white" separator={<span className="text-white">›</span>}>
-            <Typography className="text-white">
-              Projects
-            </Typography>
-            <Typography className="text-white">Assign Projects</Typography>
-          </Breadcrumbs>
+      <BreadCrumb text1={"Projects"} text2={"Assign Projects"} />
 
-          {/* Arrow Effect */}
-          <Box
-            component="span"
-            className="absolute right-[-20px] top-0 bottom-0 w-5 bg-dark-purple clip-arrow"
-          />
-          <style>
-            {`
-              .clip-arrow {
-                clip-path: polygon(100% 50%, 0 0, 0 100%);
-              }
-            `}
-          </style>
-        </Box>
-      </div>
-      
       <div className="flex flex-col items-center justify-center bg-gray-100 p-2 mt-5">
 
         <Card className="w-full max-w-5xl bg-white shadow-md rounded-md p-4">
@@ -99,7 +79,7 @@ const AssignProjects = () => {
               <Typography className="text-gray-600  mb-1">Select Projects</Typography>
 
               <List className="border border-gray-300 rounded-md p-1 bg-gray-50 shadow-sm h-full overflow-y-auto text-xs">
-                {left.map((item) => (
+                {projectsList.map((item) => (
                   <ListItem
                     key={item}
                     onClick={() => handleToggle(item)}
@@ -120,27 +100,37 @@ const AssignProjects = () => {
             <div className={`flex ${isMobile ? "flex-row" : "flex-col"} items-center gap-2`}>
               <Button
                 variant="contained"
-                onClick={() => moveItems(left, right, setLeft, setRight)}
-                disabled={checked.length === 0}
+                onClick={() => moveItems(projectsList, allocatedList, setProjectsList, setAllocatedList)}
+                // disabled={checked.length === 0 || !checked.some(item => left.includes(item))} 
+                disabled={!checked.some(item => projectsList.includes(item))}
+                sx={{
+                  backgroundColor: "#081A51",
+                  color: "white",
+                }}
                 className="bg-dark-purple hover:bg-dark-purple text-white text-xs px-4 py-1 rounded-md shadow-sm"
               >
                 {isMobile ? "↓" : "→"}
               </Button>
               <Button
                 variant="contained"
-                onClick={() => moveItems(right, left, setRight, setLeft)}
-                disabled={checked.length === 0}
+                onClick={() => moveItems(allocatedList, projectsList, setAllocatedList, setProjectsList)}
+                // disabled={checked.length === 0 || !checked.some(item => right.includes(item))}
+                disabled={!checked.some(item => allocatedList.includes(item))}
+                sx={{
+                  backgroundColor: "#081A51",
+                  color: "white",
+                }}
                 className="bg-dark-purple hover:bg-dark-purple text-white text-xs px-4 py-1 rounded-md shadow-sm"
               >
                 {isMobile ? "↑" : "←"}
               </Button>
             </div>
 
-            {/* Right List */}
+            {/* allocatedList List */}
             <Box className="flex flex-col w-full sm:w-1/3 h-[280px]">
               <Typography className="text-gray-600 text-sm font-medium mb-1">Allocated Projects</Typography>
               <List className="border border-gray-300 rounded-md p-1 bg-gray-50 shadow-sm h-full overflow-y-auto text-sm">
-                {right.map((item) => (
+                {allocatedList.map((item) => (
                   <ListItem
                     key={item}
                     onClick={() => handleToggle(item)}

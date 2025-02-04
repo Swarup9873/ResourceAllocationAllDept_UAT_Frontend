@@ -3,13 +3,15 @@ import { useState } from "react";
 // Images
 import mjLogo from "../assets/mjLogo.png";
 
-// Icons from react-icons
+
 import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
+import { Box, Avatar, Typography, Tooltip, useMediaQuery } from "@mui/material";
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const [open, setOpen] = useState(false);
+  const userName = "Swarup";
 
-  const toggleMenu = () => setOpen(!open);
+  const isMobile = useMediaQuery("(max-width: 640px)");
 
   return (
     <div className="bg-dark-purple text-white p-2 flex justify-between items-center h-14">
@@ -18,7 +20,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         <img src={mjLogo} alt="Logo" className="h-14 bg-white" />
       </div>
 
-      {!isSidebarOpen && (
+      {!isSidebarOpen && isMobile && (
         <button
           className=" md:hidden bg-dark-purple text-white p-4 rounded-lg"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -29,30 +31,60 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
       {/* Center Section: Application Tracker */}
       <div className="flex-1 text-center">
-        <h1 className="text-xl">Application Tracker</h1>
+        <h1 className="text-xl break-words ">Application Tracker</h1>
       </div>
 
       {/* Right Section: User Icon & Logout Icon */}
       <div className="flex items-center space-x-4">
-        <button
-          color="white"
-          size="sm"
-          variant="text"
-          onClick={() => console.log("User Clicked")}
-        >
-          <FaUserCircle className="text-white" size={24} />
-        </button>
-        <button
-          color="white"
-          size="sm"
-          variant="text"
-          onClick={() => console.log("Logout Clicked")}
-        >
-          <FaSignOutAlt className="text-white" size={24} />
-        </button>
+        {/* <Tooltip title={userName}>
+          <button
+            color="white"
+            size="sm"
+            variant="text"
+            onClick={() => console.log("User Clicked")}
+          >
+            <FaUserCircle className="text-white" size={24} />
+          </button>
+        </Tooltip> */}
+
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Tooltip title={userName}>
+            <Avatar
+              sx={{
+                bgcolor: "transparent", // Transparent background
+                border: "1px solid", // Add a border
+                mr: 1,
+                width: 30, // Smaller width
+                height: 30,
+                fontSize: 16,
+              }}
+            >
+              {userName.charAt(0).toUpperCase()}
+            </Avatar>
+          </Tooltip>
+          {!isMobile && (
+          <Typography variant="body1" >
+            {userName}
+          </Typography>
+          )}
+        </Box>
+
+        <Tooltip title="Logout">
+          <button
+            color="white"
+            size="sm"
+            variant="text"
+          >
+
+            <FaSignOutAlt className="text-white" size={20} />
+          </button>
+        </Tooltip>
       </div>
     </div>
   );
 };
 
 export default Navbar;
+
+
+

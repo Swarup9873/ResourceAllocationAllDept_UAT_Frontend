@@ -5,7 +5,10 @@ import { DataGrid, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-g
 function CustomToolbar() {
     return (
         <GridToolbarContainer
-            style={{ display: "flex", justifyContent: "flex-end" }}
+            style={{ 
+                display: "flex", 
+                justifyContent: "flex-end", 
+            }}
         >
             <GridToolbarExport
                 printOptions={{ disableToolbarButton: true }}
@@ -35,7 +38,7 @@ const DataGridTemplate = ({
                 toolbar: CustomToolbar,
             }}
             sx={{
-                minWidth: 800,
+                //minWidth: 900,
                 maxWidth: '100%', // Keeps it within the parent div
                 border: 0,
                 height: 'auto', // Adjust the height

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Typography, Breadcrumbs, Box, CircularProgress, Tooltip, IconButton } from "@mui/material";
 import DataGridTemplate from "../components/datagrids/DataGridProjectAllocation"
 import SearchIcon from '@mui/icons-material/Search';
+import BreadCrumb from "../components/BreadCrumb"
+
 
 const AllocateProjects = () => {
 
@@ -18,20 +20,34 @@ const AllocateProjects = () => {
 
   const years = Array.from({ length: 2 }, (_, i) => 2024 + i); // Generates years from 2020 to 2030
 
-  //const projects = []; // Empty array initially
+  // const columns = [
+  //   { field: 'id', headerName: 'ID', flex: 1.5 },
+  //   { field: 'empName', headerName: 'Emp Name', flex: 2 },
+  //   { field: 'projectName', headerName: 'Project Name', flex: 2 },
+  //   { field: 'month', headerName: 'Month', flex: 2 },
+  //   { field: 'year', headerName: 'Year', flex: 2 },
+  //   { field: 'allocation', headerName: 'Allocation', flex: 2 },
+  //   { field: 'action', headerName: 'Action', flex: 2 },
+  // ];
 
   const columns = [
-    { field: 'id', headerName: 'ID', flex: 1 },
-    { field: 'empName', headerName: 'Emp Name', flex: 2 },
-    { field: 'projectName', headerName: 'Project Name', flex: 2 },
-    { field: 'month', headerName: 'Month', flex: 2 },
-    { field: 'year', headerName: 'Year', flex: 2 },
-    { field: 'allocation', headerName: 'Allocation', flex: 2 },
-    { field: 'action', headerName: 'Action', flex: 2 },
+    { field: 'id', headerName: 'ID', width: 100 },
+    { field: 'empName', headerName: 'Emp Name', width: 120 },
+    { field: 'ipam', headerName: 'IPAM(OPEX)', width: 120 },
+    { field: 'coal', headerName: 'COAL(OPEX)', width: 120 },
+    { field: 'bam', headerName: 'BAM(OPEX)', width: 120 },
+    { field: 'mjpay', headerName: 'MJPAY(OPEX)', width: 120 },
+    { field: 'mats', headerName: 'MATS(CAPEX)', width: 120 },
+    { field: 'common', headerName: 'COMMON', width: 120 },
+    { field: 'total', headerName: 'TOTAL', width: 120 },
+    { field: 'year', headerName: 'Year', width: 120 },
+    { field: 'allocation', headerName: 'Allocation', width: 120},
+    { field: 'action', headerName: 'Action', width: 120 },
   ];
 
   const [projects, setProjects] = useState([
-    { id: 1, empName: "ABC", projectName: "Project Alpha", month: "January", year: "2024", allocation: "20%", action: "" },
+    { id: 1, empName: "ABC", ipam: "Project Alpha", coal: "30%", bam: "10%", mjpay: "January",mats: "January", common:"10%", total:"100%", year: "2024", allocation: "20%", action: "" },
+    { id: 1, empName: "ABC", ipam: "Project Alpha", coal: "30%", bam: "10%", mjpay: "January",mats: "January", common:"10%", total:"100%", year: "2024", allocation: "20%", action: "" },
   ]);
 
   const handleChange = (e) => {
@@ -55,29 +71,8 @@ const AllocateProjects = () => {
           <CircularProgress color="primary" />
         </div>
       )}
-      <div className="w-[90%] mx-auto mt-5">
-        <Box className="bg-dark-purple text-white py-2 px-4 relative inline-block">
-          <Breadcrumbs aria-label="breadcrumb" className="text-white" separator={<span className="text-white">›</span>}>
-            <Typography className="text-white">
-              Projects
-            </Typography>
-            <Typography className="text-white">Project Allocation</Typography>
-          </Breadcrumbs>
 
-          <Box
-            component="span"
-            className="absolute right-[-20px] top-0 bottom-0 w-5 bg-dark-purple clip-arrow"
-          />
-          <style>
-            {`
-              .clip-arrow {
-                clip-path: polygon(100% 50%, 0 0, 0 100%);
-              }
-            `}
-          </style>
-        </Box>
-
-      </div>
+      <BreadCrumb text1={"Projects"} text2={"Allocation"}/>
 
       <div className="p-2 w-[90%] flex justify-end mx-auto mt-5">
         <form onSubmit={handleSubmit} className="flex items-center space-x-2">
@@ -122,60 +117,6 @@ const AllocateProjects = () => {
         </form>
       </div>
 
-      {/* Form Section */}
-      {/* <div className="p-2 w-[90%] mx-auto mt-5">
-        <form onSubmit={handleSubmit} className="border border-gray-300 p-4 bg-white shadow-md rounded-lg">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-            <div>
-              <label className="block text-gray-800 text-sm font-medium mb-1">Month*</label>
-              <select
-                name="month"
-                value={formData.month}
-                onChange={handleChange}
-                className="w-full border border-gray-300 p-2 text-sm rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all"
-                required
-              >
-                <option value="">-- Select Month --</option>
-                {months.map((month, index) => (
-                  <option key={index} value={month}>
-                    {month}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-gray-800 text-sm font-medium mb-1">Year*</label>
-              <select
-                name="year"
-                value={formData.year}
-                onChange={handleChange}
-                required
-                className="w-full border border-gray-300 p-2 text-sm rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all"
-              >
-                <option value="">-- Select Year --</option>
-                {years.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-
-            <div className="flex justify-end sm:col-span-2">
-              <button
-                type="submit"
-                className="bg-dark-purple text-white text-sm font-medium px-5 py-2 rounded-lg shadow-md transition-all"
-              >
-                Search
-              </button>
-            </div>
-          </div>
-        </form>
-      </div> */}
-
-
       {/* Project List Section */}
       <div className="p-2 w-[90%] mx-auto mt-4 text-sm">
 
@@ -183,7 +124,7 @@ const AllocateProjects = () => {
           <Typography variant="h6" className="text-center text-white font-medium bg-dark-purple">
             Members List
           </Typography>
-          <div className="overflow-x-auto mt-2">
+          <div className="overflow-x-auto mt-1">
             <DataGridTemplate columns={columns} rows={projects} />
           </div>
         </div>

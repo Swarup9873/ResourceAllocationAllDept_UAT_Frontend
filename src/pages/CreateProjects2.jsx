@@ -36,7 +36,8 @@ const CreateProject = () => {
     <>
       {/* Header Section */}
       
-      <BreadCrumb text1={"Projects"} text2={"Create Projects"}/>
+      {/* <BreadCrumb text1={"Projects"} text2={"Create Projects"}/> */}
+
       <div className="w-[90%] mx-auto mt-5 flex justify-between items-center">
         <button
           onClick={handleCreate}
@@ -48,8 +49,8 @@ const CreateProject = () => {
 
       <div className="p-2 border border-blue-500 rounded-lg w-[90%] mx-auto mt-4 text-sm overflow-hidden">
 
-        <Typography variant="h6" className="text-center text-white font-medium bg-dark-purple">
-          Project List
+        <Typography variant="h6" className="text-white font-medium bg-dark-purple p-1">
+          List of Projects
         </Typography>
         
         <div style={{ width: '100%', overflowX: 'auto' }}>

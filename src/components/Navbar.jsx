@@ -3,8 +3,8 @@ import { useState } from "react";
 // Images
 import mjLogo from "../assets/mjLogo.png";
 
-
-import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
+//external imports
+import { FaSignOutAlt } from "react-icons/fa";
 import { Box, Avatar, Typography, Tooltip, useMediaQuery } from "@mui/material";
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
@@ -31,22 +31,11 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
       {/* Center Section: Application Tracker */}
       <div className="flex-1 text-center">
-        <h1 className="text-xl break-words ">Application Tracker</h1>
+        <h1 className="text-xl break-words ">Resource Allocation</h1>
       </div>
 
       {/* Right Section: User Icon & Logout Icon */}
       <div className="flex items-center space-x-4">
-        {/* <Tooltip title={userName}>
-          <button
-            color="white"
-            size="sm"
-            variant="text"
-            onClick={() => console.log("User Clicked")}
-          >
-            <FaUserCircle className="text-white" size={24} />
-          </button>
-        </Tooltip> */}
-
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Tooltip title={userName}>
             <Avatar

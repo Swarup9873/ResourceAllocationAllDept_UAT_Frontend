@@ -5,9 +5,9 @@ import { DataGrid, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-g
 function CustomToolbar() {
     return (
         <GridToolbarContainer
-            style={{ 
-                display: "flex", 
-                justifyContent: "flex-end", 
+            style={{
+                display: "flex",
+                justifyContent: "flex-end",
             }}
         >
             <GridToolbarExport
@@ -37,6 +37,7 @@ const DataGridTemplate = ({
             slots={{
                 toolbar: CustomToolbar,
             }}
+
             sx={{
                 //minWidth: 900,
                 maxWidth: '100%', // Keeps it within the parent div
@@ -46,8 +47,12 @@ const DataGridTemplate = ({
                 width: '100%', // Make the grid take less width
                 fontSize: '0.775rem', // Make text smaller
                 '.MuiDataGrid-columnHeader': {
-                 position: "sticky",
-                    fontSize: '0.775rem', // Make column header font smaller
+                    position: "sticky",
+                    fontSize: '0.875rem', // Make column header font smaller
+                },
+                '.MuiDataGrid-columnHeaderTitle': {
+                    fontWeight: 'bold', // Ensures title text is bold
+                    color:' #081A51'
                 },
                 '.MuiDataGrid-cell': {
                     fontSize: '0.675rem', // Make cell text smaller

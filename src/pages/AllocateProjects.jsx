@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Typography, Breadcrumbs, Box, CircularProgress, Tooltip, IconButton } from "@mui/material";
+import { Typography, CircularProgress, Tooltip, IconButton } from "@mui/material";
 import DataGridTemplate from "../components/datagrids/DataGridProjectAllocation"
 import SearchIcon from '@mui/icons-material/Search';
-import BreadCrumb from "../components/BreadCrumb"
 
 
 const AllocateProjects = () => {
@@ -40,14 +39,12 @@ const AllocateProjects = () => {
     { field: 'mats', headerName: 'MATS(CAPEX)', width: 120 },
     { field: 'common', headerName: 'COMMON', width: 120 },
     { field: 'total', headerName: 'TOTAL', width: 120 },
-    { field: 'year', headerName: 'Year', width: 120 },
-    { field: 'allocation', headerName: 'Allocation', width: 120},
     { field: 'action', headerName: 'Action', width: 120 },
   ];
 
   const [projects, setProjects] = useState([
-    { id: 1, empName: "ABC", ipam: "Project Alpha", coal: "30%", bam: "10%", mjpay: "January",mats: "January", common:"10%", total:"100%", year: "2024", allocation: "20%", action: "" },
-    { id: 1, empName: "ABC", ipam: "Project Alpha", coal: "30%", bam: "10%", mjpay: "January",mats: "January", common:"10%", total:"100%", year: "2024", allocation: "20%", action: "" },
+    { id: 1, empName: "debo", ipam: "20%", coal: "30%", bam: "10%", mjpay: "30%",mats: "10%", common:"10%", total:"100%", action: "" },
+    { id: 2, empName: "Swarup", ipam: "10%", coal: "30%", bam: "10%", mjpay: "25%",mats: "20%", common:"10%", total:"100%", action: "" },
   ]);
 
   const handleChange = (e) => {
@@ -72,7 +69,7 @@ const AllocateProjects = () => {
         </div>
       )}
 
-      <BreadCrumb text1={"Projects"} text2={"Allocation"}/>
+      {/* <BreadCrumb text1={"Projects"} text2={"Allocation"}/> */}
 
       <div className="p-2 w-[90%] flex justify-end mx-auto mt-5">
         <form onSubmit={handleSubmit} className="flex items-center space-x-2">
@@ -121,11 +118,11 @@ const AllocateProjects = () => {
       <div className="p-2 w-[90%] mx-auto mt-4 text-sm">
 
         <div className="border border-gray-300 p-2 bg-white shadow-md rounded-lg">
-          <Typography variant="h6" className="text-center text-white font-medium bg-dark-purple">
+          <Typography variant="h6" className="text-white font-medium bg-dark-purple p-1">
             Members List
           </Typography>
           <div className="overflow-x-auto mt-1">
-            <DataGridTemplate columns={columns} rows={projects} />
+            <DataGridTemplate columns={columns} rows={projects} columnHeaderHeight={36}/>
           </div>
         </div>
       </div>

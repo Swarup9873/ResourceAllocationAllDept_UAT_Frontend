@@ -16,7 +16,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const [activeIndex, setActiveIndex] = useState(null); // Track open submenu
 
   const Menus = [
-    { title: "Dashboard", src: Chart_fill, path: "/" },
+    // { title: "Dashboard", src: Chart_fill, path: "/" },
     {
       title: "Projects",
       src: Calendar,
@@ -27,12 +27,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         { title: "Allocation", path: "/allocate" },
       ],
     },
-    {
-      title: "Team Member",
-      src: User,
-      gap: true,
-      submenus: [{ title: "List", path: "/list" }],
-    },
+    // {
+    //   title: "Team Member",
+    //   src: User,
+    //   gap: true,
+    //   submenus: [{ title: "List", path: "/list" }],
+    // },
     { title: "Reports", src: Folder, gap: true, path: "/reports" },
   ];
 

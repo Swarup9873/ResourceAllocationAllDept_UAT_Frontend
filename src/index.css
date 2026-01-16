@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html {
+  @apply text-base;   /* applies your custom base fontSize */
+}
+
+.p-column-header-content {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+
+
+/* Fix for PrimeReact dropdown click issues */
+.p-column-filter-menu {
+    pointer-events: all !important;
+    z-index: 3000 !important;
+}
+
+.p-column-filter-overlay {
+    z-index: 3001 !important;
+}
+
+.p-column-header-content {
+    text-align: left;
+    justify-content: flex-start;
+    display: flex
+;
+}
